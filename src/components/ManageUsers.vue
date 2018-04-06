@@ -149,7 +149,10 @@
             currentPage: currentPage
           },
           {
-            emulateJSON: true
+            emulateJSON: true,
+            headers: {
+              'x-access-token': window.localStorage.getItem('x-access-token')
+            }
           }
         ).then(function (res) {
           console.log(res.data.pageInfo)

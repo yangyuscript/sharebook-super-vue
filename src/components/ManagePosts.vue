@@ -166,7 +166,10 @@
             currentPage: currentPage
           },
           {
-            emulateJSON: true
+            emulateJSON: true,
+            headers: {
+              'x-access-token': window.localStorage.getItem('x-access-token')
+            }
           }
         ).then(function (res) {
           console.log(res.data.pageInfo)
@@ -189,7 +192,10 @@
                 content: that.formItem2.descri
               },
               {
-                emulateJSON: true
+                emulateJSON: true,
+                headers: {
+                  'x-access-token': window.localStorage.getItem('x-access-token')
+                }
               }
             ).then(function (res) {
               console.log(res.data.status)
@@ -216,7 +222,10 @@
             postid: that.currDelBtId,
           },
           {
-            emulateJSON: true
+            emulateJSON: true,
+            headers: {
+              'x-access-token': window.localStorage.getItem('x-access-token')
+            }
           }
         ).then(function (res) {
           console.log(res.data.pageInfo)

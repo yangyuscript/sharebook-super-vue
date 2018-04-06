@@ -49,6 +49,7 @@
 </template>
 
 <script>
+  //import Vue from 'vue'
   export default {
     name: 'HelloWorld',
     data () {
@@ -102,7 +103,7 @@
                   password: that.formItem.password
                 },
                 {
-                  emulateJSON: true
+                  emulateJSON: true,
                 }
               ).then(function (res) {
                 console.log(res.data.loginUser)
@@ -113,13 +114,13 @@
                   window.localStorage.setItem('username', res.data.loginUser.name)
                   window.localStorage.setItem('sex', res.data.loginUser.sex)
                   window.localStorage.setItem('condi', res.data.loginUser.condi)
+                  window.localStorage.setItem('x-access-token', res.data.token)
+                  //Vue.http.headers.common['x-access-token'] = window.localStorage.getItem("x-access-token")
                   console.log('hahaha' + res.data.condi)
                   if (res.data.loginUser.condi === 0) {
                     this.$router.replace({path: '/index'})
-                  } else if (res.data.loginUser.condi === 1) {
-                    this.$router.replace({path: '/manager'})
-                  } else {
-                    this.$router.replace({path: '/reader'})
+                  } else{
+                    this.$Message.error('账号暂无权限!')
                   }
                 } else {
                   this.$Message.error('账号或密码有误！')

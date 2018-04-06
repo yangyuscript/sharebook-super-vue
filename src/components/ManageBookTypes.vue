@@ -130,7 +130,10 @@
             currentPage: currentPage
           },
           {
-            emulateJSON: true
+            emulateJSON: true,
+            headers: {
+              'x-access-token': window.localStorage.getItem('x-access-token')
+            }
           }
         ).then(function (res) {
           console.log(res.data.pageInfo)
@@ -152,7 +155,10 @@
                 btname: that.formItem2.account,
               },
               {
-                emulateJSON: true
+                emulateJSON: true,
+                headers: {
+                  'x-access-token': window.localStorage.getItem('x-access-token')
+                }
               }
             ).then(function (res) {
               console.log(res.data.status)
@@ -178,7 +184,10 @@
             btid: that.currDelBtId,
           },
           {
-            emulateJSON: true
+            emulateJSON: true,
+            headers: {
+              'x-access-token': window.localStorage.getItem('x-access-token')
+            }
           }
         ).then(function (res) {
           console.log(res.data.pageInfo)
