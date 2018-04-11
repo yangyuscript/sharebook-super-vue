@@ -91,7 +91,7 @@
     },
     methods: {
       handleSubmit(name) {
-        // this.$router.replace({path: '/index'})
+        this.$router.replace({path: '/index'})
         var that = this
         this.loading = true
         this.$refs[name].validate((valid) => {

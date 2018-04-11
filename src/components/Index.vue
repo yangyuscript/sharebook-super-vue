@@ -2,7 +2,7 @@
   <div class="layout">
     <Row type="flex">
       <Col span="5" class="layout-menu-left">
-      <Menu active-name="1-1" theme="dark" width="auto" :open-names="['1']">
+      <Menu active-name="2-1" theme="dark" width="auto" :open-names="['2']">
         <div class="layout-logo-left">
           <h2 style="color:white;">流书管理平台</h2>
         </div>
@@ -17,22 +17,14 @@
           <MenuItem name="1-4"><span @click="go_ManagePosts">帖子管理</span></MenuItem>
           <MenuItem name="1-5"><span @click="go_ManageNotices">通知管理</span></MenuItem>
         </Submenu>
-        <!--<Submenu name="2">
+        <Submenu name="2">
           <template slot="title">
             <Icon type="ios-keypad"></Icon>
-            书籍管理
+            数据监控
           </template>
-          <MenuItem name="2-1"><span @click="lookBook">查看书籍</span></MenuItem>
-          <MenuItem name="2-2">Option 2</MenuItem>
+          <MenuItem name="2-1"><span @click="go_ManageContent">平台数据监管</span></MenuItem>
+          <MenuItem name="2-2"><span @click="go_ManageRunpics">微信端滚屏</span></MenuItem>
         </Submenu>
-        <Submenu name="3">
-          <template slot="title">
-            <Icon type="ios-analytics"></Icon>
-            网站管理
-          </template>
-          <MenuItem name="3-1">Option 1</MenuItem>
-          <MenuItem name="3-2">Option 2</MenuItem>
-        </Submenu>-->
       </Menu>
       </Col>
       <Col span="19">
@@ -67,6 +59,8 @@
   import ManageBookTypes from '../components/ManageBookTypes.vue'
   import ManagePosts from '../components/ManagePosts.vue'
   import ManageNotices from '../components/ManageNotices.vue'
+  import ManageContent from '../components/ManageContent.vue'
+  import ManageRunpics from '../components/ManageRunpics.vue'
   import Button from 'iview/src/components/button/button'
   export default {
     name: 'Index',
@@ -75,11 +69,23 @@
         msg: 'haha',
         one_nav: '主页',
         two_nav: '后台管理',
-        three_nav: '用户管理',
-        currentView: 'ManageUsers'
+        three_nav: '平台数据监管',
+        currentView: 'ManageContent'
       }
     },
     methods: {
+      go_ManageContent () {
+        this.one_nav = '主页'
+        this.two_nav = '后台管理'
+        this.three_nav = '平台数据监管'
+        this.currentView = 'ManageContent'
+      },
+      go_ManageRunpics () {
+        this.one_nav = '主页'
+        this.two_nav = '后台管理'
+        this.three_nav = '微信端滚屏'
+        this.currentView = 'ManageRunpics'
+      },
       go_ManageUsers () {
         this.one_nav = '主页'
         this.two_nav = '后台管理'
@@ -113,6 +119,8 @@
     },
     components: {
       Button,
+      ManageContent: ManageContent,
+      ManageRunpics: ManageRunpics,
       ManageUsers: ManageUsers,
       ManageBooks: ManageBooks,
       ManageBookTypes: ManageBookTypes,
