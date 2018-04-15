@@ -91,7 +91,7 @@
     },
     methods: {
       handleSubmit(name) {
-        this.$router.replace({path: '/index'})
+        //this.$router.replace({path: '/index'})
         var that = this
         this.loading = true
         this.$refs[name].validate((valid) => {
@@ -109,14 +109,13 @@
                 console.log(res.data.loginUser)
                 if (res.data.status === 'ok') {
                   this.$Message.success('登录成功!')
-                  window.localStorage.setItem('userId', res.data.loginUser.rid)
-                  window.localStorage.setItem('account', res.data.loginUser.account)
-                  window.localStorage.setItem('username', res.data.loginUser.name)
-                  window.localStorage.setItem('sex', res.data.loginUser.sex)
+                  window.localStorage.setItem('userId', res.data.loginUser.userid)
+                  window.localStorage.setItem('account', res.data.loginUser.email)
+                  window.localStorage.setItem('username', res.data.loginUser.nickname)
+                  window.localStorage.setItem('sex', res.data.loginUser.head)
                   window.localStorage.setItem('condi', res.data.loginUser.condi)
                   window.localStorage.setItem('x-access-token', res.data.token)
                   //Vue.http.headers.common['x-access-token'] = window.localStorage.getItem("x-access-token")
-                  console.log('hahaha' + res.data.condi)
                   if (res.data.loginUser.condi === 0) {
                     this.$router.replace({path: '/index'})
                   } else{

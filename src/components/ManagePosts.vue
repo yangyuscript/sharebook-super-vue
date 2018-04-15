@@ -19,7 +19,7 @@
     <Modal
       v-model="modal1"
       title="新添帖子"
-      width="800"
+      width="900"
       @on-ok="ok('formItem2')"
     >
       <Form ref="formItem2" :model="formItem2" :rules="ruleItem2" :label-width="80">
