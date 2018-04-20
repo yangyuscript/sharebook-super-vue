@@ -11,24 +11,26 @@
             <Icon type="ios-navigate"></Icon>
             后台管理
           </template>
-          <MenuItem name="1-1"><span @click="go_ManageUsers">用户管理</span></MenuItem>
-          <MenuItem name="1-2"><span @click="go_ManageBooks">书籍管理</span></MenuItem>
-          <MenuItem name="1-3"><span @click="go_ManageBookTypes">书籍种类管理</span></MenuItem>
-          <MenuItem name="1-4"><span @click="go_ManagePosts">帖子管理</span></MenuItem>
-          <MenuItem name="1-5"><span @click="go_ManageNotices">通知管理</span></MenuItem>
+          <MenuItem @click.native="go_ManageUsers" name="1-1"><span >用户管理</span></MenuItem>
+          <MenuItem @click.native="go_ManageBooks" name="1-2"><span>书籍管理</span></MenuItem>
+          <MenuItem @click.native="go_ManageBookTypes" name="1-3"><span>书籍种类管理</span></MenuItem>
+          <MenuItem @click.native="go_ManagePosts" name="1-4"><span>帖子管理</span></MenuItem>
+          <MenuItem @click.native="go_ManageNotices" name="1-5"><span>通知管理</span></MenuItem>
         </Submenu>
         <Submenu name="2">
           <template slot="title">
             <Icon type="ios-keypad"></Icon>
             数据监控
           </template>
-          <MenuItem name="2-1"><span @click="go_ManageContent">平台数据监管</span></MenuItem>
-          <MenuItem name="2-2"><span @click="go_ManageRunpics">微信端滚屏</span></MenuItem>
+          <MenuItem @click.native="go_ManageContent" name="2-1"><span>平台数据监管</span></MenuItem>
+          <MenuItem @click.native="go_ManageRunpics" name="2-2"><span>微信端滚屏</span></MenuItem>
         </Submenu>
       </Menu>
       </Col>
       <Col span="19">
-      <div class="layout-header"></div>
+      <div class="layout-header">
+        <Icon @click.native="modal1 = true" style="float:right;margin-top: 15px;margin-right: 15px;" size="30" type="power"></Icon>
+      </div>
       <div class="layout-breadcrumb">
         <Breadcrumb>
           <BreadcrumbItem href="#">{{one_nav}}</BreadcrumbItem>
@@ -51,6 +53,13 @@
       </div>
       </Col>
     </Row>
+    <Modal
+      v-model="modal1"
+      title="提示"
+      @on-ok="ok"
+      @on-cancel="cancel">
+      <p style="text-align:center;">是否注销用户，离开网站？</p>
+    </Modal>
   </div>
 </template>
 <script>
@@ -70,7 +79,8 @@
         one_nav: '主页',
         two_nav: '后台管理',
         three_nav: '平台数据监管',
-        currentView: 'ManageContent'
+        currentView: 'ManageContent',
+        modal1: false
       }
     },
     methods: {
@@ -115,6 +125,35 @@
         this.two_nav = '后台管理'
         this.three_nav = '通知管理'
         this.currentView = 'ManageNotices'
+      },
+      ok () {
+        this.$http.post(this.GLOBAL.serverPath + '/super/logout',
+          {},
+          {
+            emulateJSON: true,
+            headers: {
+              'x-access-token': window.localStorage.getItem('x-access-token')
+            }
+          }
+        ).then(function (res) {
+          if(res.data.status=='ok'){
+            window.localStorage.removeItem('userId')
+            window.localStorage.removeItem('account')
+            window.localStorage.removeItem('username')
+            window.localStorage.removeItem('sex')
+            window.localStorage.removeItem('condi')
+            window.localStorage.removeItem('x-access-token')
+            this.$router.replace({path: '/'})
+            this.$Message.info('注销成功');
+          }else{
+            this.$Message.fail('注销失败，请重试')
+          }
+        }).catch((e) => {
+          this.$Message.fail('网络有误！')
+        })
+      },
+      cancel () {
+        this.$Message.info('取消');
       }
     },
     components: {
